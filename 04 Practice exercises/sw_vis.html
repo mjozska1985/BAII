@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "C-3PO", "label": "C-3PO", "shape": "dot", "size": 10}, {"id": "R2-D2", "label": "R2-D2", "shape": "dot", "size": 10}, {"id": "CHEWBACCA", "label": "CHEWBACCA", "shape": "dot", "size": 10}, {"id": "BERU", "label": "BERU", "shape": "dot", "size": 10}, {"id": "LUKE", "label": "LUKE", "shape": "dot", "size": 10}, {"id": "OWEN", "label": "OWEN", "shape": "dot", "size": 10}, {"id": "LEIA", "label": "LEIA", "shape": "dot", "size": 10}, {"id": "OBI-WAN", "label": "OBI-WAN", "shape": "dot", "size": 10}, {"id": "HAN", "label": "HAN", "shape": "dot", "size": 10}, {"id": "BIGGS", "label": "BIGGS", "shape": "dot", "size": 10}, {"id": "RED LEADER", "label": "RED LEADER", "shape": "dot", "size": 10}, {"id": "DODONNA", "label": "DODONNA", "shape": "dot", "size": 10}, {"id": "CAMIE", "label": "CAMIE", "shape": "dot", "size": 10}, {"id": "GOLD LEADER", "label": "GOLD LEADER", "shape": "dot", "size": 10}, {"id": "WEDGE", "label": "WEDGE", "shape": "dot", "size": 10}, {"id": "RED TEN", "label": "RED TEN", "shape": "dot", "size": 10}, {"id": "DARTH VADER", "label": "DARTH VADER", "shape": "dot", "size": 10}, {"id": "MOTTI", "label": "MOTTI", "shape": "dot", "size": 10}, {"id": "TARKIN", "label": "TARKIN", "shape": "dot", "size": 10}, {"id": "GREEDO", "label": "GREEDO", "shape": "dot", "size": 10}, {"id": "JABBA", "label": "JABBA", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "C-3PO", "to": "R2-D2", "weight": 1}, {"from": "C-3PO", "to": "CHEWBACCA", "weight": 1}, {"from": "C-3PO", "to": "BERU", "weight": 1}, {"from": "C-3PO", "to": "LUKE", "weight": 1}, {"from": "C-3PO", "to": "OWEN", "weight": 1}, {"from": "C-3PO", "to": "LEIA", "weight": 1}, {"from": "C-3PO", "to": "OBI-WAN", "weight": 1}, {"from": "C-3PO", "to": "HAN", "weight": 1}, {"from": "C-3PO", "to": "BIGGS", "weight": 1}, {"from": "C-3PO", "to": "RED LEADER", "weight": 1}, {"from": "R2-D2", "to": "LUKE", "weight": 1}, {"from": "R2-D2", "to": "OBI-WAN", "weight": 1}, {"from": "R2-D2", "to": "LEIA", "weight": 1}, {"from": "R2-D2", "to": "HAN", "weight": 1}, {"from": "R2-D2", "to": "CHEWBACCA", "weight": 1}, {"from": "R2-D2", "to": "DODONNA", "weight": 1}, {"from": "LUKE", "to": "CHEWBACCA", "weight": 1}, {"from": "LUKE", "to": "CAMIE", "weight": 1}, {"from": "LUKE", "to": "BIGGS", "weight": 1}, {"from": "LUKE", "to": "BERU", "weight": 1}, {"from": "LUKE", "to": "OWEN", "weight": 1}, {"from": "LUKE", "to": "LEIA", "weight": 1}, {"from": "LUKE", "to": "OBI-WAN", "weight": 1}, {"from": "LUKE", "to": "HAN", "weight": 1}, {"from": "LUKE", "to": "DODONNA", "weight": 1}, {"from": "LUKE", "to": "GOLD LEADER", "weight": 1}, {"from": "LUKE", "to": "WEDGE", "weight": 1}, {"from": "LUKE", "to": "RED LEADER", "weight": 1}, {"from": "LUKE", "to": "RED TEN", "weight": 1}, {"from": "OBI-WAN", "to": "CHEWBACCA", "weight": 1}, {"from": "OBI-WAN", "to": "LEIA", "weight": 1}, {"from": "OBI-WAN", "to": "HAN", "weight": 1}, {"from": "OBI-WAN", "to": "DARTH VADER", "weight": 1}, {"from": "LEIA", "to": "CHEWBACCA", "weight": 1}, {"from": "LEIA", "to": "DARTH VADER", "weight": 1}, {"from": "LEIA", "to": "BERU", "weight": 1}, {"from": "LEIA", "to": "MOTTI", "weight": 1}, {"from": "LEIA", "to": "TARKIN", "weight": 1}, {"from": "LEIA", "to": "HAN", "weight": 1}, {"from": "LEIA", "to": "BIGGS", "weight": 1}, {"from": "LEIA", "to": "RED LEADER", "weight": 1}, {"from": "HAN", "to": "CHEWBACCA", "weight": 1}, {"from": "HAN", "to": "GREEDO", "weight": 1}, {"from": "HAN", "to": "JABBA", "weight": 1}, {"from": "CHEWBACCA", "to": "DARTH VADER", "weight": 1}, {"from": "CHEWBACCA", "to": "DODONNA", "weight": 1}, {"from": "DODONNA", "to": "GOLD LEADER", "weight": 1}, {"from": "DODONNA", "to": "WEDGE", "weight": 1}, {"from": "DARTH VADER", "to": "MOTTI", "weight": 1}, {"from": "DARTH VADER", "to": "TARKIN", "weight": 1}, {"from": "CAMIE", "to": "BIGGS", "weight": 1}, {"from": "BIGGS", "to": "RED LEADER", "weight": 1}, {"from": "BIGGS", "to": "WEDGE", "weight": 1}, {"from": "BIGGS", "to": "GOLD LEADER", "weight": 1}, {"from": "BERU", "to": "OWEN", "weight": 1}, {"from": "MOTTI", "to": "TARKIN", "weight": 1}, {"from": "GOLD LEADER", "to": "WEDGE", "weight": 1}, {"from": "GOLD LEADER", "to": "RED LEADER", "weight": 1}, {"from": "WEDGE", "to": "RED LEADER", "weight": 1}, {"from": "RED LEADER", "to": "RED TEN", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
